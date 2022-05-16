@@ -21,7 +21,9 @@ namespace GradeManagementApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
             services.AddDbContext<GradeManageDbContext>(ob => ob.UseSqlServer(Configuration.GetConnectionString("Default")));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -42,6 +44,8 @@ namespace GradeManagementApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
