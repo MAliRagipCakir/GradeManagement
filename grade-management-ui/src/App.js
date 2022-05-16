@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
+const API_URL = "https://localhost:5001/";
+
 function App() {
+  const [studentGrades, setStudentGrades] = useState([])
+
+  useEffect(() => {
+
+    axios.get(API_URL + "api/studentGrades")
+    .then(function(response){
+      setStudentGrades(response.data);
+    });
+
+  }, [])
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Student Grades</h1>
+      <ul>
+        {studentGrades.map((x,i) => <li key={i}>{x.firstName}</li>)}
+      </ul>
     </div>
   );
 }
