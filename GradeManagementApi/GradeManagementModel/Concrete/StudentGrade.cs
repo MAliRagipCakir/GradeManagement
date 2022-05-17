@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using GradeManagementModel.Abstract;
+using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace GradeManagementApi.Data
+namespace GradeManagementModel.Concrete
 {
-    public class StudentGrades
+    public class StudentGrade : IBaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required, MaxLength(50)]
         public string FirstName { get; set; }
         [Required, MaxLength(50)]

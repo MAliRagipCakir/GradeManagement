@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GradeManagementApi.DTOs
+namespace GradeManagementModel.DTOs
 {
     public class PostStudentGradeDto
     {

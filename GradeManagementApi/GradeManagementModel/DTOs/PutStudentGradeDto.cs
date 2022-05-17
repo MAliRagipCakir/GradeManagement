@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
-namespace GradeManagementApi.DTOs
+namespace GradeManagementModel.DTOs
 {
     public class PutStudentGradeDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required, MaxLength(50)]
         public string FirstName { get; set; }
         [Required, MaxLength(50)]

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeManagementApi", "GradeManagementApi\GradeManagementApi.csproj", "{6A05A15B-F3EC-497C-9CD5-391226658213}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GradeManagementApi", "GradeManagementApi\GradeManagementApi.csproj", "{6A05A15B-F3EC-497C-9CD5-391226658213}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeManagementData", "GradeManagementData\GradeManagementData.csproj", "{942B74DD-B0BC-475E-8ADD-527DB1691EB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeManagementModel", "GradeManagementModel\GradeManagementModel.csproj", "{3FD06615-7C4E-459F-A4E4-5F4F960C5914}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6A05A15B-F3EC-497C-9CD5-391226658213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A05A15B-F3EC-497C-9CD5-391226658213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A05A15B-F3EC-497C-9CD5-391226658213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{942B74DD-B0BC-475E-8ADD-527DB1691EB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{942B74DD-B0BC-475E-8ADD-527DB1691EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{942B74DD-B0BC-475E-8ADD-527DB1691EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{942B74DD-B0BC-475E-8ADD-527DB1691EB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FD06615-7C4E-459F-A4E4-5F4F960C5914}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FD06615-7C4E-459F-A4E4-5F4F960C5914}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FD06615-7C4E-459F-A4E4-5F4F960C5914}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FD06615-7C4E-459F-A4E4-5F4F960C5914}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

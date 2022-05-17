@@ -1,4 +1,6 @@
-using GradeManagementApi.Data;
+using GradeManagementData.Concrete.Context;
+using GradeManagementData.EntityFramework.Abstract;
+using GradeManagementData.EntityFramework.Concrete;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +25,7 @@ namespace GradeManagementApi
         {
             services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
             services.AddDbContext<GradeManageDbContext>(ob => ob.UseSqlServer(Configuration.GetConnectionString("Default")));
-
+            services.AddScoped<IStudentGradeRepository, StudentGradeRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
