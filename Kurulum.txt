@@ -1,0 +1,17 @@
+Database.Migrate metodu bulunduğu için Api uygulaması çalıştığında veritabanı oluşacaktır.
+Manuel oluşturmak için Api projesinde Package Manager Console'da GradeManagementData projesi seçili iken update-database komutu çalıştırılabilir
+
+Api projesini çalıştırmak için
+~\HitaTek_Task\GradeManagement\GradeManagementApi\GradeManagementApi dotnet run
+
+
+Arayüz için 
+	** Html-Bootstrap5-JQuery **
+	GradeManagementApi > GradeManagementUI > index.html çalıştırılabilir
+
+
+
+	** React Projesi eksik sadece getAll isteği var ve normal ReactJs kullanıldı TypeScript template'i değil**
+	Ui projesini çalıştırmak için
+	~\HitaTek_Task\GradeManagement\grade-management-ui npm i
+	~\HitaTek_Task\GradeManagement\grade-management-ui npm start

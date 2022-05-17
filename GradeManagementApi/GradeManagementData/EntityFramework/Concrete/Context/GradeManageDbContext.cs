@@ -8,7 +8,7 @@ namespace GradeManagementData.Concrete.Context
     {
         public GradeManageDbContext(DbContextOptions<GradeManageDbContext> options) : base(options)
         {
-
+            Database.Migrate();
         }
 
         public DbSet<StudentGrade> StudentGrades { get; set; }
@@ -25,5 +25,14 @@ namespace GradeManagementData.Concrete.Context
                 new StudentGrade() { Id = Guid.NewGuid(), FirstName = "Bob", LastName = "Marley", MidTerm = 8, Final = 99 }
                 );
         }
+
+        //TODO Veritabanı yapısı versiyon 2'de LazyLoading kullanmak için -- microsoft.entityframeworkcore.proxies -v 5.0.17 paketi kurulmalı
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+
+        //    optionsBuilder.UseLazyLoadingProxies();
+
+        //    base.OnConfiguring(optionsBuilder);
+        //}
     }
 }

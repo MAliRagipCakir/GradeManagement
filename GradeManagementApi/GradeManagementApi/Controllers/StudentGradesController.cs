@@ -23,8 +23,7 @@ namespace GradeManagementApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StudentGrade>>> GetStudentGrades()
         {
-            var list = await _studentGradeRepository.GetAll();
-            return list;
+            return await _studentGradeRepository.GetAll();
         }
 
         // GET: api/StudentGrades/5
