@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
-import { Button, Container, Form, Modal, Table } from 'react-bootstrap';
+import { Button, Container, Form, FormControl, Modal, Table } from 'react-bootstrap';
 
 const API_URL = "https://localhost:5001/";
 
@@ -16,42 +16,60 @@ function App() {
 
   const [showEdit, setShowEdit] = useState(false);
   const handleCloseEdit = () => setShowEdit(false);
-  const handleShowEdit = () => setShowEdit(true);
+
+  const handleShowEdit = function (grade) {
+    setSelectedStudentGrade({ ...grade });
+    setShowEdit(true);
+  };
 
   useEffect(() => {
-
     axios.get(API_URL + "api/studentGrades")
       .then(function (response) {
         setStudentGrades(response.data);
       });
-
   }, []);
 
-  const selectGrade = function (grade) {
-    setSelectedStudentGrade({ ...grade });
-  };
-
   const handleDeleteClick = function (grade) {
-
-    // setSelectedStudentGrade({ ...grade }); //Hata alınca html-css-javascript'e döndüm
-    // console.log(selectedStudentGrade.id);
-
-    // axios.delete(API_URL + "api/studentGrades/" + studentGrades[event.target.dataset].id)
-    //   .then(function (response) {
-    //     setStudentGrades(studentGrades.filter(x => x.id != studentGrades[event.target.dataset].id));
-    //   });
+    axios.delete(API_URL + "api/studentGrades/" + grade.id)
+      .then(function (response) {
+        setStudentGrades(studentGrades.filter(x => x.id != grade.id));
+      });
   };
 
-  // TODO handleEditModalSubmit
-  // TODO handleAddModalSubmit
-  // TODO override handleShowEdit
+  const handleAddModalSubmit = function (event) {
+    event.preventDefault();
+    
+    axios.post(API_URL + "api/studentGrades", newStudentGrade)
+      .then(function (response) {
+        const newstudentGrades = [...studentGrades];
+        newstudentGrades.push(response.data);
+        setStudentGrades(newstudentGrades);
+
+        const emptyStudentGrade = { firstName: "", lastName: "", midTerm: 0, final: 0 };
+        setNewStudentGrade(emptyStudentGrade);
+        handleCloseNew();
+      });
+  };
+
+  const handleEditModalSubmit = function (event) {
+    event.preventDefault();
+
+    axios.put(API_URL + "api/studentGrades/" + selectedStudentGrade.id, selectedStudentGrade)
+      .then(function (response) {
+        const newstudentGrades = [...studentGrades];
+        const i = newstudentGrades.findIndex(x => x.id == response.data.id);
+        newstudentGrades[i] = response.data;
+        setStudentGrades(newstudentGrades);
+        handleCloseEdit();
+      });
+  };
 
   return (
     <div className="App">
       <Container>
         <div className='d-flex my-3'>
           <h2 className=' me-auto'>Student Grades</h2>
-          <Button variant="success" onClick={handleShowNew}>
+          <Button variant="success" id='5' onClick={handleShowNew}>
             Add Student Grade
           </Button>
         </div>
@@ -74,10 +92,10 @@ function App() {
                 <td>{grade.midTerm}</td>
                 <td>{grade.final}</td>
                 <td className='d-flex flex-column flex-md-row justify-content-around'>
-                  <Button variant="warning" onClick={handleShowEdit}>{/* TODO handleShowEdit() */}
+                  <Button variant="warning" onClick={() => handleShowEdit(grade)}>
                     Edit
                   </Button>
-                  <Button key={grade.id} variant="danger" onClick={handleDeleteClick(grade)}>{/* TODO handleDelete() */}
+                  <Button key={grade.id} variant="danger" onClick={() => handleDeleteClick(grade)}>
                     Delete
                   </Button>
                 </td>
@@ -85,44 +103,50 @@ function App() {
           </tbody>
         </Table>
 
-        {/*TODO Add Modal */}
+        {/*Add Modal */}
         <Modal show={showNew} onHide={handleCloseNew}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Add</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-
+            <Form onSubmit={handleAddModalSubmit}>
+              <FormControl className='mb-3' type="text" placeholder="First Name" value={newStudentGrade.firstName} onChange={(e) => setNewStudentGrade({ ...newStudentGrade, firstName: e.target.value })} required />
+              <FormControl className='mb-3' type="text" placeholder="Last Name" value={newStudentGrade.lastName} onChange={(e) => setNewStudentGrade({ ...newStudentGrade, lastName: e.target.value })} required />
+              <FormControl className='mb-3' min={0} max={100} type="number" placeholder="MidTerm" value={newStudentGrade.midTerm} onChange={(e) => setNewStudentGrade({ ...newStudentGrade, midTerm: e.target.value })} required />
+              <FormControl className='mb-3' min={0} max={100} type="number" placeholder="Final" value={newStudentGrade.final} onChange={(e) => setNewStudentGrade({ ...newStudentGrade, final: e.target.value })} required />
+              <div className='d-flex justify-content-end'>
+                <Button className='me-3' variant="success" type='submit'>
+                  Add
+                </Button>
+                <Button variant="secondary" onClick={handleCloseNew}>
+                  Close
+                </Button>
+              </div>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseNew}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleCloseNew}>
-              Add
-            </Button>
-          </Modal.Footer>
         </Modal>
 
-        {/*TODO Edit Modal */}
+        {/*Edit Modal */}
         <Modal show={showEdit} onHide={handleCloseEdit}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Edit</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-
+            <Form onSubmit={handleEditModalSubmit}>
+              <FormControl className='mb-3' type="text" placeholder="First Name" value={selectedStudentGrade.firstName} onChange={(e) => setSelectedStudentGrade({ ...selectedStudentGrade, firstName: e.target.value })} required />
+              <FormControl className='mb-3' type="text" placeholder="Last Name" value={selectedStudentGrade.lastName} onChange={(e) => setSelectedStudentGrade({ ...selectedStudentGrade, lastName: e.target.value })} required />
+              <FormControl className='mb-3' min={0} max={100} type="number" placeholder="MidTerm" value={selectedStudentGrade.midTerm} onChange={(e) => setSelectedStudentGrade({ ...selectedStudentGrade, midTerm: e.target.value })} required />
+              <FormControl className='mb-3' min={0} max={100} type="number" placeholder="Final" value={selectedStudentGrade.final} onChange={(e) => setSelectedStudentGrade({ ...selectedStudentGrade, final: e.target.value })} required />
+              <div className='d-flex justify-content-end'>
+                <Button className='me-3' variant="warning" type='submit'>
+                  Save Changes
+                </Button>
+                <Button variant="secondary" onClick={handleCloseEdit}>
+                  Close
+                </Button>
+              </div>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseEdit}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleCloseEdit}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
         </Modal>
 
       </Container>
